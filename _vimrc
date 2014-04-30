@@ -1,12 +1,12 @@
-set nocompatible " vi互換を無効
-set noswapfile "swapファイルを作らない
-set nowritebackup "バックアップファイルを作成しない
-set nobackup "バックアップを無効
+set nocompatible
+set noswapfile
+set nowritebackup
+set nobackup
 
 "----------------------------
 " Vundle
 "----------------------------
-filetype off " required!
+filetype off
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -33,63 +33,53 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'snipMate'
 " ----------------------------
 
-" ファイル形式での判別をON
 filetype indent plugin on
 filetype indent on
 
 " ----------------------------
 " display
 " ----------------------------
-" 色付けON
 syntax enable
-"colorscheme jellybeans
 colorscheme molokai
 set t_Co=256
 
-set number " show line number
-set showmode " show mode
-set title " show filename
-set list " show eol,tab,etc...
+set number
+set showmode
+set title
+set list
 set listchars=tab:>-,trail:-,extends:>,precedes:< " eol:$
 
 " ----------------------------
-set hidden "バッファ切り替えを利用、編集中に他のファイルを表示
-set wildmenu "ワイルドメニュー有効
-set showcmd "タイプ途中のコマンドを画面最下行に表示
-set hlsearch "検索語の強調表示（C-Lで解除）
+set hidden
+set wildmenu
+set showcmd
+set hlsearch
 
 " ----------------------------
-" 検索時に大文字・小文字を区別しない。ただし、検索後に大文字小文字が
-" 混在しているときは区別する
 set ignorecase
 set smartcase
-set autoindent "オートインデントON
+set autoindent
 set autoread
-set nostartofline "移動などを使った時に行頭に移動しない（Shift+Gとか？）
-set ruler "ルーラー表示（画面最下部）
-set clipboard=unnamed,autoselec " share OS clipboard
-
-" オートインデント、改行、インサートモード開始直後にバックスペースキーで削除できるようにする。
+set nostartofline
+set ruler
+set clipboard=unnamed,autoselec
 set backspace=indent,eol,start
-set laststatus=2 "ステータスラインを常に表示する
-set confirm "バッファが変更されている場合保存するか尋ねる
-set visualbell "beepの代わりにビジュアルベル（画面フラッシュ）を使う
-set t_vb= "ビジュアルベル無効
-set mouse=a "全モード時マウス有効
-set cmdheight=1 "コマンドラインの高さを2行に
-set number "行番号表示
-set notimeout ttimeout ttimeoutlen=200 "キーコードはすぐにタイムアウト。マッピングはタイムアウトしない（？）
+set laststatus=2
+set confirm
+set visualbell
+set t_vb=
+set mouse=a
+set cmdheight=1
+set number
+set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<F11>
-set splitbelow "新しいウィンドウを下に開く
+set splitbelow
 
 " ----------------------------
-" タブ文字の代わりにスペース2個を使う場合の設定。
-" この場合、'tabstop'はデフォルトの8から変えない。 =>
-" 2に変更する場合はコメント解除
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-"set tabstop=2 "タブ1辺りのスペース文字数
+"set tabstop=2
 
 " ----------------------------
 highlight link ZenkakuSpace Error
@@ -106,13 +96,9 @@ match ZenkakuSpace /　/
 " ----------------------------
 " key map
 " ----------------------------
-"<Leader>をスペースに"
 let mapleader=" "
-" 入力モード中に素早くJJと入力した場合はESCとみなす
 inoremap jj <Esc>
-" ESCを二回押すことでハイライトを消す
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
-" 他の分割画面を閉じる
 nnoremap <Leader>o :only<CR>
 nnoremap <Leader>r :QuickRun<CR>
 
@@ -121,7 +107,6 @@ nnoremap <Leader>r :QuickRun<CR>
 " ----------------------------
 augroup BufferAu
 autocmd!
-" change current directory
 autocmd BufNewFile,BufRead,BufEnter * if isdirectory(expand("%:p:h")) && bufname("%") !~ "NERD_tree" | cd %:p:h | endif
 augroup END
 
