@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/root/rails_projects/sample_app'
+let g:netrw_dirhist_2='/root/.vim/ftdetect'
+let g:netrw_dirhist_3='/usr/lib/ruby/2.1.0/webrick'
+let g:netrw_dirhist_4='/root/.zprezto'
