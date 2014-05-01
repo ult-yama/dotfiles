@@ -79,7 +79,7 @@ set splitbelow
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-"set tabstop=2
+set tabstop=2
 
 " ----------------------------
 highlight link ZenkakuSpace Error
@@ -101,6 +101,49 @@ inoremap jj <Esc>
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
 nnoremap <Leader>o :only<CR>
 nnoremap <Leader>r :QuickRun<CR>
+" Ctrl+hjklでウィンドウ移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" resize window
+function! s:resizeWindow()
+  let mappings = []
+  let curwin = winnr()
+  wincmd j | let target1 = winnr() | exe curwin "wincmd w"
+  wincmd l | let target2 = winnr() | exe curwin "wincmd w"
+   
+  if curwin == target1
+  call add(mappings,['j','-']) | call add(mappings,['k','+'])
+  else
+  call add(mappings,['j','+']) | call add(mappings,['k','-'])
+  endif
+   
+  if curwin == target2
+  call add(mappings,['h','>']) | call add(mappings,['l','<'])
+  else
+  call add(mappings,['h','<']) | call add(mappings,['l','>'])
+  endif
+   
+  for i in mappings
+  execute printf('nnoremap <buffer> <silent> %s <C-w>%s:echo "window-resize"<CR>',i[0],i[1])
+  endfor
+  nnoremap <buffer> <silent> = <C-w>=:echo "window-resize"<CR>
+  nnoremap <buffer> <silent> <C-g> :<C-u>call <SID>deleteMappings(['=','j','k','h','l','<C-g>'])<CR>:redraw!<CR>
+   
+  echohl ModeMsg
+  echo "window-resize"
+endfunction
+ 
+function! s:deleteMappings(mappings)
+  for i in a:mappings
+  execute 'nunmap <buffer> ' . i
+  endfor
+  echohl None
+endfunction
+ 
+nnoremap <C-W>r :<C-u>call <SID>resizeWindow()<CR>
 
 " ----------------------------
 " auto command
